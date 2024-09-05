@@ -1,9 +1,9 @@
-package org.empresa.domain;
+package org.empresa.domain.Entities;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Empresa {
+public class Empresa extends BaseEntity<Integer> {
     private List<Guia> guias = new ArrayList<>();
 
     public void registrarGuia(Guia nuevaGuia) {

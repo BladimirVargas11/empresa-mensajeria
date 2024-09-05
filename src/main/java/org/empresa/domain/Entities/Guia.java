@@ -1,6 +1,6 @@
-package org.empresa.domain;
+package org.empresa.domain.Entities;
 
-public class Guia {
+public class Guia extends BaseEntity<Integer> {
     private int numeroGuia;
     private double peso;
     private double valorDeclarado;

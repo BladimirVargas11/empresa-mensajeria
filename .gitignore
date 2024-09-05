@@ -36,4 +36,6 @@ target/
 *.iws
 *.iml
 *.ipr
-
+# Ignorar todo el contenido de src/main/resources/data/
+src/main/resources/data/*.json
+.vscode

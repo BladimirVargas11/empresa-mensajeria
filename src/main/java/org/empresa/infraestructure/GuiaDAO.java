@@ -1,9 +1,9 @@
 package org.empresa.infraestructure;
-import org.empresa.domain.Estado;
-import org.empresa.domain.Guia;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.empresa.domain.Entities.Estado;
+import org.empresa.domain.Entities.Guia;
 
 public class GuiaDAO {
     private List<Guia> guias = new ArrayList<>();

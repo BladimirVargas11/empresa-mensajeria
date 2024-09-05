@@ -1,4 +1,4 @@
-package org.empresa.domain;
+package org.empresa.domain.Entities;
 
 public class Caja extends Servicio {
     @Override

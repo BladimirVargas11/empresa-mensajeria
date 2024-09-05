@@ -1,24 +1,34 @@
 package org.empresa.application;
 
+import org.empresa.domain.Entities.Caja;
+import org.empresa.domain.Entities.Destinatario;
+import org.empresa.domain.Entities.Empresa;
+import org.empresa.domain.Entities.Estado;
+import org.empresa.domain.Entities.Guia;
+import org.empresa.domain.Entities.Paquete;
+import org.empresa.domain.Entities.Remitente;
+import org.empresa.domain.Entities.Servicio;
+import org.empresa.domain.Entities.Sobre;
+import org.empresa.domain.Services.EmpresaService;
+import org.empresa.infraestructure.Extensions.AppConfig;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import org.empresa.domain.*;
-import org.empresa.infraestructure.EmpresaDAO;
-import org.empresa.infraestructure.GuiaDAO;
+import static org.empresa.domain.Entities.Estado.DESPACHO;
 
 import java.util.List;
 import java.util.Scanner;
 
-import static org.empresa.domain.Estado.DESPACHO;
-
 public class Main {
 
     static Scanner scanner = new Scanner(System.in);
+
     public static void main(String[] args) {
+        @SuppressWarnings("resource")
+        ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+
+        EmpresaService empresaService = context.getBean(EmpresaService.class);
         Empresa empresa = new Empresa();
-        EmpresaDAO empresaDAO = new EmpresaDAO(empresa);
-        GuiaDAO guiaDAO = new GuiaDAO();
-
-
 
         // Ejemplo de uso
         while (true) {
@@ -48,12 +58,14 @@ public class Main {
                     String destinatario = scanner.next();
                     List<Guia> guiasPorDestinatario = empresa.consultarGuiasPorDestinatario(destinatario);
                     for (Guia g : guiasPorDestinatario) {
-                        System.out.println("Guía: " + g.getNumeroGuia() + ", Destinatario: " + g.getDestinatario().getNombreCompania());
+                        System.out.println("Guía: " + g.getNumeroGuia() + ", Destinatario: "
+                                + g.getDestinatario().getNombreCompania());
                     }
                     break;
                 case 4:
                     System.exit(0);
             }
+            empresaService.createEmpresa(empresa);
         }
     }
 
@@ -65,6 +77,7 @@ public class Main {
         System.out.println("El valor de su envío es: " + guia.calcularValor());
         return guia;
     }
+
     private static Remitente crearRemitente() {
         leerLinea();
         System.out.println("Ingrese el nombre del remitente:");
@@ -118,7 +131,7 @@ public class Main {
         return scanner.nextLine();
     }
 
-    private static  int leerEntero(String mensaje) {
+    private static int leerEntero(String mensaje) {
         while (true) {
             try {
                 System.out.println(mensaje);

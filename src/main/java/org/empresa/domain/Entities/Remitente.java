@@ -1,6 +1,6 @@
-package org.empresa.domain;
+package org.empresa.domain.Entities;
 
-public class Remitente {
+public class Remitente extends BaseEntity<Integer> {
     private String nombre;
     private String departamento;
     private String telefono;
@@ -35,8 +35,5 @@ public class Remitente {
         this.telefono = telefono;
     }
 
-    public Remitente(){
-
-    }
 }
 

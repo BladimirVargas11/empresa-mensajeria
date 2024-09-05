@@ -1,6 +1,6 @@
-package org.empresa.domain;
+package org.empresa.domain.Entities;
 
-public class Destinatario {
+public class Destinatario extends BaseEntity<Integer> {
     private String nombreCompania;
     private String nombreContacto;
     private String direccion;

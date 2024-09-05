@@ -1,9 +1,9 @@
 package org.empresa.infraestructure;
-import org.empresa.domain.Empresa;
-import org.empresa.domain.Estado;
-import org.empresa.domain.Guia;
-
 import java.util.List;
+
+import org.empresa.domain.Entities.Empresa;
+import org.empresa.domain.Entities.Estado;
+import org.empresa.domain.Entities.Guia;
 
 public class EmpresaDAO {
     private Empresa empresa;

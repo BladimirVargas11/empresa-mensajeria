@@ -10,6 +10,7 @@ public interface IUserInterface {
     Guia getGuiaFromUser();
     String getEstadoFromUser();
     String getEmpresaDestinatarioFromUser();
+    void saveGuia(Guia guia);
     void displayGuias(List<Guia> guias);
     void exit();
 }

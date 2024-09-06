@@ -2,6 +2,8 @@ package org.empresa.domain.Entities;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class BaseEntity<T> {
 
     private T id;

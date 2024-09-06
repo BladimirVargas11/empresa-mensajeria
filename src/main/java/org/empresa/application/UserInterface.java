@@ -1,14 +1,15 @@
 package org.empresa.application;
 
+import static org.empresa.domain.Entities.Estado.DESPACHO;
+
 import java.util.List;
 import java.util.Scanner;
 
 import org.empresa.application.interfaces.IUserInterface;
+import org.empresa.domain.Entities.Destinatario;
 import org.empresa.domain.Entities.Guia;
-import org.empresa.domain.Services.EmpresaService;
-import org.empresa.infraestructure.Extensions.AppConfig;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.empresa.domain.Entities.Remitente;
+import org.empresa.domain.Entities.Servicio;
 
 public class UserInterface implements IUserInterface {
     private static final Scanner scanner = new Scanner(System.in);
@@ -29,8 +30,12 @@ public class UserInterface implements IUserInterface {
 
     @Override
     public Guia getGuiaFromUser() {
-        System.err.println("Hola");
-        return new Guia(getUserOption(), getUserOption(), getUserOption(), null, null, null, null);
+        Remitente remitente = crearRemitente();
+        Destinatario destinatario = crearDestinatario();
+        Guia guia = crearGuia(remitente, destinatario);
+
+        System.out.println("El valor de su envío es: " + guia.calcularValor());
+        return guia;
     }
 
     @Override
@@ -56,4 +61,59 @@ public class UserInterface implements IUserInterface {
     public void exit() {
         System.exit(0);
     }
+
+    @Override
+    public void saveGuia(Guia guia) {
+
+    }
+
+    private static Guia crearGuia(Remitente remitente, Destinatario destinatario) {
+        int numeroGuia = leerEntero("Ingrese el número de guía:");
+        int peso = leerEntero("Ingrese el peso del paquete:");
+        int valorEnvio = leerEntero("Ingrese el valor del envío:");
+        int opcionPaquete = leerEntero("\n1.SOBRE \n2.CAJA \n3.PAQUETE \n Ingrese tipo: ");
+
+        Servicio servicio = ServicioFactory.crearServicio(opcionPaquete);
+ 
+        return new Guia(numeroGuia, peso, valorEnvio, DESPACHO, servicio, remitente, destinatario);
+    }
+
+    private static Destinatario crearDestinatario() {
+        System.out.println("Ingrese el nombre de la compañia del destinatario:");
+        String nombreCompania = leerLinea();
+        System.out.println("Ingrese el nombre de contacto del destinatario:");
+        String nombreContacto = leerLinea();
+        System.out.println("Ingrese la dirección del destinatario:");
+        String direccion = leerLinea();
+        System.out.println("Ingrese el teléfono del destinatario:");
+        String telefono = leerLinea();
+        return new Destinatario(nombreCompania, nombreContacto, direccion, telefono);
+    }
+
+    private static Remitente crearRemitente() {
+        leerLinea();
+        System.out.println("Ingrese el nombre del remitente:");
+        String nombre = leerLinea();
+        System.out.println("Ingrese el departamento del remitente:");
+        String departamento = leerLinea();
+        System.out.println("Ingrese el teléfono del remitente:");
+        String telefono = leerLinea();
+        return new Remitente(nombre, departamento, telefono);
+    }
+
+    private static String leerLinea() {
+        return scanner.nextLine();
+    }
+
+    private static int leerEntero(String mensaje) {
+        while (true) {
+            try {
+                System.out.println(mensaje);
+                return Integer.parseInt(leerLinea());
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada inválida. Por favor, ingrese un número entero.");
+            }
+        }
+    }
+
 }

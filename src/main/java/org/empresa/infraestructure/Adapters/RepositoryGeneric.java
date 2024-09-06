@@ -23,6 +23,7 @@ public class RepositoryGeneric<T extends BaseEntity<?>> implements IRepositoryGe
     public RepositoryGeneric(Class<T> entityType) {
         this.file = new File("src/main/resources/data/" + entityType.getSimpleName() + ".json");
         createFileIfNotExists();
+        this.loadFromFile();
     }
 
     @Override
@@ -50,14 +51,13 @@ public class RepositoryGeneric<T extends BaseEntity<?>> implements IRepositoryGe
 
     @Override
     public Iterable<T> findAll() {
-        return store.values();
+        Iterable<T> iterable =  store.values();
+        return iterable;
     }
 
     private void saveToFile() {
         try {
-            // Crear el directorio si no existe
             Files.createDirectories(Paths.get(file.getParent()));
-            // Escribir los datos en el archivo
             objectMapper.writeValue(file, store.values());
         } catch (IOException e) {
             e.printStackTrace();
@@ -66,7 +66,7 @@ public class RepositoryGeneric<T extends BaseEntity<?>> implements IRepositoryGe
     }
 
     private void loadFromFile() {
-        if (file.exists()|| file.length() == 0) {
+        if (file.exists() && file.length() > 0) {
             try {
                 // Leer los datos del archivo
                 List<T> loadedData = objectMapper.readValue(file, new TypeReference<List<T>>() {});

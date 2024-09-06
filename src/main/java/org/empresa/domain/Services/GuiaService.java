@@ -32,7 +32,11 @@ public class GuiaService implements IGuiaService {
 
     @Override
     public List<Guia> obtenerTodasLasGuias() {
-        return (List<Guia>) guiaRepository.findAll();
+        Iterable<Guia> todasLasGuiasIterable = guiaRepository.findAll();
+
+        List<Guia> todasLasGuias = new ArrayList<>();
+        todasLasGuiasIterable.forEach(todasLasGuias::add);
+        return todasLasGuias;
     }
 
     @Override
@@ -55,10 +59,6 @@ public class GuiaService implements IGuiaService {
         return false;
     }
 
-    @Override
-    public double calcularValorGuia(Guia guia) {
-        return guia.calcularValor();
-    }
 
     @Override
     public void cambiarEstadoGuia(int numeroGuia, String nuevoEstado) {
@@ -72,16 +72,10 @@ public class GuiaService implements IGuiaService {
 
     @Override
     public List<Guia> obtenerGuiasPorEstado(String estado) {
-        Iterable<Guia> todasLasGuiasIterable = guiaRepository.findAll();
-
-        // Convertir Iterable a List para usar Stream
-        List<Guia> todasLasGuias = new ArrayList<>();
-        todasLasGuiasIterable.forEach(todasLasGuias::add);
-
-        // Paso 2: Convertir el estado de String a Enum
+        
+        List<Guia> todasLasGuias  = this.obtenerTodasLasGuias();
         Estado estadoEnum = Estado.valueOf(estado);
 
-        // Paso 3: Filtrar las guías por el estado proporcionado
         List<Guia> guiasFiltradas = todasLasGuias.stream()
                 .filter(guia -> guia.getEstado().equals(estadoEnum))
                 .collect(Collectors.toList());
@@ -91,8 +85,9 @@ public class GuiaService implements IGuiaService {
 
     @Override
     public List<Guia> obtenerGuiasPorNombreDestinatario(String nombreDestinatario) {
-        return ((List<Guia>) guiaRepository.findAll())
-                .stream()
+
+        List<Guia> todasLasGuias  = this.obtenerTodasLasGuias();
+        return  todasLasGuias.stream()
                 .filter(guia -> guia.getDestinatario().getNombreCompania().equalsIgnoreCase(nombreDestinatario))
                 .collect(Collectors.toList());
     }

@@ -1,6 +1,6 @@
 package org.empresa.domain.Entities;
 
-public class Destinatario extends BaseEntity<Integer> {
+public class Destinatario {
     private String nombreCompania;
     private String nombreContacto;
     private String direccion;
@@ -44,8 +44,5 @@ public class Destinatario extends BaseEntity<Integer> {
         this.nombreContacto = nombreContacto;
         this.direccion = direccion;
         this.telefono = telefono;
-    }
-    public Destinatario(){
-
     }
 }

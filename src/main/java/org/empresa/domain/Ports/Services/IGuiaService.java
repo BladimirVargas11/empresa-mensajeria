@@ -9,7 +9,6 @@ public interface IGuiaService {
     List<Guia> obtenerTodasLasGuias();
     Guia actualizarGuia(Guia guia);
     boolean eliminarGuia(int numeroGuia);
-    double calcularValorGuia(Guia guia);
     void cambiarEstadoGuia(int numeroGuia, String nuevoEstado);
     List<Guia> obtenerGuiasPorEstado(String estado);
     List<Guia> obtenerGuiasPorNombreDestinatario(String nombreDestinatario);

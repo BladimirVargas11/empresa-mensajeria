@@ -33,8 +33,6 @@ public class UserInterface implements IUserInterface {
         Remitente remitente = crearRemitente();
         Destinatario destinatario = crearDestinatario();
         Guia guia = crearGuia(remitente, destinatario);
-
-        System.out.println("El valor de su envío es: " + guia.calcularValor());
         return guia;
     }
 
@@ -114,6 +112,11 @@ public class UserInterface implements IUserInterface {
                 System.out.println("Entrada inválida. Por favor, ingrese un número entero.");
             }
         }
+    }
+
+    @Override
+    public void showTotalValue(double total) {
+        System.out.println("El valor de su envío es: " + total  );
     }
 
 }

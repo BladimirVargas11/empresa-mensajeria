@@ -1,6 +1,6 @@
 package org.empresa.domain.Entities;
 
-public class Remitente extends BaseEntity<Integer> {
+public class Remitente {
     private String nombre;
     private String departamento;
     private String telefono;

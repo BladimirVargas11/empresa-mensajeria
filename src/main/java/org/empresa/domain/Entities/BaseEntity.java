@@ -1,44 +1,47 @@
 package org.empresa.domain.Entities;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BaseEntity<T> {
 
-    private T id;
+    private UUID  id;
     private LocalDateTime fechaCreacion;
     private LocalDateTime fechaModificacion;
-    private boolean eliminado;
+    private Boolean eliminado;
 
     public LocalDateTime getFechaCreacion() {
         return fechaCreacion;
     }
 
-    public void setFechaCreacion() {
-        this.fechaCreacion = LocalDateTime.now();
+    public void setFechaCreacion(LocalDateTime fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
     }
+
+    public void setFechaModificacion(LocalDateTime fechaModificacion) {
+        this.fechaModificacion = fechaModificacion;
+    }
+
     public LocalDateTime getFechaModificacion() {
         return fechaModificacion;
     }
 
-    public void setFechaModificacion() {
-        this.fechaModificacion = LocalDateTime.now();;
+    public void setEliminado(Boolean eliminado) {
+        this.eliminado = eliminado;
     }
 
     public boolean isEliminado() {
         return eliminado;
     }
 
-    public void setEliminado() {
-        this.eliminado = true;
-    }
-
-    public T getId() {
+    public UUID  getId() {
         return id;
     }
 
-    public void setId(T id) {
+    public void setId(UUID  id) {
         this.id = id;
     }
 }

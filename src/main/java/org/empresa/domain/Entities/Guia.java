@@ -1,5 +1,7 @@
 package org.empresa.domain.Entities;
 
+import java.util.UUID;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -77,6 +79,7 @@ public class Guia extends BaseEntity<Integer> {
     }
 
     public Guia(int numeroGuia, double peso, double valorDeclarado, Estado estado, Servicio servicio, Remitente remitente, Destinatario destinatario) {
+        this.setId(UUID.randomUUID()); 
         this.numeroGuia = numeroGuia;
         this.peso = peso;
         this.valorDeclarado = valorDeclarado;

@@ -30,6 +30,7 @@ public class Main {
                 case 1:
                     Guia guia = userInterface.getGuiaFromUser();
                     guiaService.crearGuia(guia);
+                    userInterface.showTotalValue(guia.calcularValor());
                     break;
                 case 2:
                     String estado = userInterface.getEstadoFromUser();
